@@ -3,17 +3,17 @@ var serand = require('serand');
 
 dust.loadSource(dust.compile(require('./template'), 'accounts-authorize'));
 
-module.exports = function (sandbox, fn, options) {
+module.exports = function (sandbox, options, done) {
     dust.render('accounts-authorize', options, function (err, out) {
         if (err) {
-            return;
+            return done(err);
         }
         sandbox.append(out);
         sandbox.on('click', '.accounts-authorize .allow', function (e) {
             serand.emit('user', 'authorized', options);
             return false;
         });
-        fn(false, function () {
+        done(null, function () {
             $('.accounts-authorize', sandbox).remove();
         });
     });
