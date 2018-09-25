@@ -3,7 +3,7 @@ var serand = require('serand');
 
 dust.loadSource(dust.compile(require('./template'), 'accounts-authorize'));
 
-module.exports = function (sandbox, options, done) {
+module.exports = function (ctx, sandbox, options, done) {
     dust.render('accounts-authorize', options, function (err, out) {
         if (err) {
             return done(err);
